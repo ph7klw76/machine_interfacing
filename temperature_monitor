@@ -87,3 +87,53 @@ mydata1=np.genfromtxt('E:/testtemp.csv',delimiter=',')
 plt.hist(Y1, density=True, bins=5)
 plt.show()
 
+from scipy.interpolate import griddata
+
+mydata1=np.genfromtxt('E:/testtemp.csv',delimiter=',')
+
+
+
+n=1000
+allX=[mydata1[i][0] for i in range(n)] #power
+allY=[mydata1[i][1] for i in range(n)] #load percentage
+I=[mydata1[i][2] for i in range(n)]  #temperature
+
+
+    
+heatmap, xedges, yedges = np.histogram2d(allX, allY, bins=(50,50))
+extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+
+# Plot heatmap
+plt.clf()
+plt.title('when does my computer spend the time with')
+plt.ylabel('load percentage (%)')
+plt.xlabel('power /W')
+plt.imshow(heatmap, extent=extent)
+plt.show()   
+
+from mpl_toolkits.mplot3d import axes3d
+import matplotlib.pyplot as plt
+from matplotlib import cm
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+# Plot the 3D surface
+ax.plot_surface(allX, allY, I, rstride=8, cstride=8, alpha=0.3)
+
+# Plot projections of the contours for each dimension.  By choosing offsets
+# that match the appropriate axes limits, the projected contours will sit on
+# the 'walls' of the graph
+cset = ax.contourf(allX, allY, I, zdir='z', offset=-100, cmap=cm.coolwarm)
+cset = ax.contourf(allX, allY, I, zdir='x', offset=-40, cmap=cm.coolwarm)
+cset = ax.contourf(allX, allY, I, zdir='y', offset=40, cmap=cm.coolwarm)
+
+ax.set_xlim(0, 100)
+ax.set_ylim(0, )
+ax.set_zlim(30, 100)
+
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+
+plt.show()
+
