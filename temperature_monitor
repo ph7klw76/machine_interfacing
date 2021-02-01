@@ -87,7 +87,3 @@ mydata1=np.genfromtxt('E:/testtemp.csv',delimiter=',')
 plt.hist(Y1, density=True, bins=5)
 plt.show()
 
-
-allX=[mydata1[i][0] for i in range(n)]
-allY=[mydata1[i][1] for i in range(n)]
-I=[mydata1[i][2] for i in range(n)]
